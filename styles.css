@@ -235,7 +235,7 @@ nav {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.19), 0 16px 16px rgba(0, 0, 0, 0.23);
 }
 #our-service {
-  background-color: #ee6f57;
+    background:linear-gradient(45deg,#6e61e6,#cb3737);
 }
 .bars {
   height: max-content;
@@ -277,7 +277,7 @@ nav {
   font-size: 2.3rem;
 }
 #benefits {
-  background-color: #f84848;
+  background:linear-gradient(45deg,#6e61e6,#cb3737);
 }
 #benefits iframe {
   outline: 0;
@@ -313,7 +313,7 @@ input[type="email"] {
 }
 footer {
   font-size: 1.4rem;
-  background-color: #ce2f2f;
+  background:linear-gradient(45deg,#6e61e6,#cb3737);
   text-align: center;
   padding: 2rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
