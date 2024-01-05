@@ -7,12 +7,33 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+
+    <!-- Chatbot -->
+    <div class="chat-circle">
+      <i class="fa-solid fa-comments fa-2x" style="color: #ffffff;"></i>
+  </div>
+
+  <div class="chat-box">
+      <div class="chat-box-header">
+          <span>Chat with AI</span>
+          <button class="close-button"><i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i></button>
+      </div>
+      <div class="chat-box-messages" id="chat-box-messages"></div>
+      <div class="user-input-area">
+          <input type="text" id="user-input" placeholder="Type a message...">
+          <button id="send-button"><i class="fa-solid fa-paper-plane" style="color: #ffffff;"></i></button>
+      </div>
+  </div>
+
+
+
+    <!-- -------------- -->
     <header id="header">
       <div class="header-content-div">
-        <a href="#home-sec">
+        <!-- <a href="#home-sec">
           <img src="logo.png" alt="Company Logo" id="header-img"
-        /></a>
-        <!-- <h1>WellNestAI</h1> -->
+        /></a> -->
+        <h1>WellNestAI</h1>
         <nav id="nav-bar">
           <!-- <h3>WellNestAI</h3> -->
           <a href="#about" class="nav-link">ABOUT</a>
@@ -33,7 +54,7 @@
             "Empowering Health Through Intelligent Solutions: Your AI-Driven
             Path to Wellness"
           </h2>
-          <button class="btn" onclick="window.location.href = '#contact';">
+          <button class="btn" id="button2">
             Chat with AI
           </button>
         </div>
@@ -163,6 +184,23 @@
             </div>
           </div>
         </div> -->
+        <!-- <h2>MENTALLY FRUSTRATED ?</h2>
+        <h2>Need someone to talk?</h2>
+        <div>
+        <a href="https://r.search.yahoo.com/_ylt=Awr1QYzHz5dlx7oHN7i7HAx.;_ylu=Y29sbwNzZzMEcG9zAzIEdnRpZAMEc2VjA3Ny/RV=2/RE=1704476744/RO=10/RU=https%3a%2f%2fwww.supportiv.com%2ftools%2fneed-to-vent-anonymously/RK=2/RS=WOW0eLug9YDnbfV0cNtHbmAGqew-"> 
+          <h2 class="venti">VENT HERE!</h2>
+        </a>
+       </div> -->
+      </section>
+      <section class="vent" id="hapu">
+        <h2>MENTALLY FRUSTRATED ?</h2>
+        <h2>Need someone to talk?</h2>
+        <div>
+        <a href="https://r.search.yahoo.com/_ylt=Awr1QYzHz5dlx7oHN7i7HAx.;_ylu=Y29sbwNzZzMEcG9zAzIEdnRpZAMEc2VjA3Ny/RV=2/RE=1704476744/RO=10/RU=https%3a%2f%2fwww.supportiv.com%2ftools%2fneed-to-vent-anonymously/RK=2/RS=WOW0eLug9YDnbfV0cNtHbmAGqew-"> 
+          <h2 class="venti">VENT HERE!</h2>
+        </a>
+       </div>
+
       </section>
 
       <section id="benefits" class="sec-padding">
@@ -210,5 +248,83 @@
       Created by
       <a href="#"> WellNestAI</a>
     </footer>
+
+    <script>
+      const chatCircle = document.querySelector('.chat-circle');
+        const chatBox = document.querySelector('.chat-box');
+        const closeButton = document.querySelector('.close-button');
+        const chatBoxMessages = document.getElementById('chat-box-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const btn = document.getElementById('button2');
+
+        chatCircle.addEventListener('click', () => {
+            chatCircle.style.display = 'none';
+            chatBox.style.right = '20px';
+            chatBoxMessages.style.display = 'block';
+        });
+
+        closeButton.addEventListener('click', () => {
+            chatCircle.style.display = 'flex';
+            chatBox.style.right = '-320px';
+            chatBoxMessages.style.display = 'none';
+        });
+
+        function sendMessage(message) {
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user-message';
+            userMessage.innerHTML = message;
+            chatBoxMessages.appendChild(userMessage);
+        }
+
+        function receiveMessage(message) {
+            const botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            botMessage.innerHTML = message;
+            chatBoxMessages.appendChild(botMessage);
+        }
+
+        
+        function sendUserMessage() {
+            const message = userInput.value;
+            if (message.trim() !== '') {
+                sendMessage(message);
+                scrollToBottom();
+                fetch(`http://127.0.0.1:8000/accounts/getResponse?IPmessage=${message}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const botResponse = data.message;
+                        receiveMessage(botResponse);
+                        scrollToBottom();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+
+                userInput.value = '';
+            }
+        }
+
+
+        sendButton.addEventListener('click', () => {
+            sendUserMessage();
+        });
+
+        userInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                sendUserMessage();
+            }
+        });
+
+        btn.addEventListener('click',() => {
+          chatCircle.style.display = 'none';
+            chatBox.style.right = '20px';
+            chatBoxMessages.style.display = 'block';
+        })
+
+        function scrollToBottom() {
+            chatBoxMessages.scrollTop = chatBoxMessages.scrollHeight;
+        }
+    </script>
   </body>
 </html>
