@@ -28,10 +28,10 @@ class NeuralNet(nn.Module):
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('/Users/jiyajisu/Desktop/Cloned/server/mainFolder/intents.json', 'r') as json_data:
+with open('D:\Programming\Github Projects\GDSCROOTHACK\server\mainFolder\intents.json', 'r') as json_data:
     intents = json.load(json_data)
 
-FILE = "/Users/jiyajisu/Desktop/Cloned/server/mainFolder/data.pth"
+FILE = "D:\Programming\Github Projects\GDSCROOTHACK\server\mainFolder\data.pth"
 data = torch.load(FILE)
 
 input_size = data["input_size"]
